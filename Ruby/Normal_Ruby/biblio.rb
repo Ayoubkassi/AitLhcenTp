@@ -1,4 +1,6 @@
 require 'csv'
+require 'colorize'
+
 
 
 class Adherent
@@ -90,6 +92,14 @@ class Document
 
   def addDocument
     @@liste_document[@@isbn] = self
+  end
+
+  def self.rechercherTitre(word)
+    contain_word = @@liste_document.select{ |key , value|
+      value.name.include? word
+    }
+
+    return contain_word
   end
 
   def toString
@@ -217,6 +227,7 @@ while repeat
   puts " 20 - Rendre un Livre"
   puts " 21 - Enregistre la bibliothèque dans des fichiers CSV"
   puts " 22 - Charge la bibliothèque à partir des fichiers CSV"
+  puts " 23 - Recherche Mot dans document"
 
 
 
@@ -228,7 +239,9 @@ while repeat
     new_adherent.first_name = gets.to_s.strip
     puts "Entrer le nom d'adherent : "
     new_adherent.last_name = gets.to_s.strip
-    puts "-> New Adherent has been created"
+    puts "\n\n"
+    puts "-> New Adherent has been created".green
+    puts "\n\n"
     new_adherent.addAdherent()
     print "Si vous voulez repeter le programme tapez 1 sinon 0 : "
     num = gets.to_i
@@ -244,7 +257,9 @@ while repeat
     auteur.name = gets.to_s.strip
     new_livre.auteur = auteur.name
     auteur.addAuteur()
-    puts "-> New Book has been created"
+    puts "\n\n"
+    puts "-> New Book has been created".green
+    puts "\n\n"
     new_livre. addDocument()
     print "Si vous voulez repeter le programme tapez 1 sinon 0 : "
     num = gets.to_i
@@ -255,7 +270,9 @@ while repeat
     new_materiel.type="ordinateur portable"
     puts "Entrer le nom du Laptop : "
     new_materiel.name = gets.to_s.strip
-    puts "-> New Laptop has been created"
+    puts "\n\n"
+    puts "-> New Laptop has been created".green
+    puts "\n\n"
     new_materiel.addMateriel()
     print "Si vous voulez repeter le programme tapez 1 sinon 0 : "
     num = gets.to_i
@@ -264,35 +281,58 @@ while repeat
     puts "Entrer l'id du personne : "
     id = gets.to_i
     if(Adherent.getAllAdherent().has_key?(id))
+      puts "\n\n"
+      puts "Adherent recherche est : ".green
       puts Adherent.getAllAdherent()[id].toString()
+      puts "\n\n"
     else
-      puts "Adherent avec ce id n'existe pas"
+      puts "\n\n"
+      puts "Adherent avec ce id n'existe pas".red
+      puts "\n\n"
+
     end
   elsif (choix == 5)
     puts "Entrer l'ISBN du document : "
     isbn = gets.to_i
     if(Document.getAllDocument().has_key?(isbn))
+      puts "\n\n"
+      puts "Document recherche est : ".green
       puts Document.getAllDocument()[isbn]
+      puts "\n\n"
+
     else
-      puts "Document avec ce ISBN n'existe pas"
+      puts "\n\n"
+      puts "Document avec ce ISBN n'existe pas".red
+      puts "\n\n"
     end
   elsif (choix == 6)
     puts "Entrer l'id du materiel : "
     id = gets.to_i
     if(Materiel.getAllMateriel().has_key?(id))
+      puts "\n\n"
+      puts "Materiel recherche est : ".green
       puts Materiel.getAllMateriel()[id]
+      puts "\n\n"
     else
-      puts "Materiel avec ce id n'existe pas"
+      puts "\n\n"
+      puts "Materiel avec ce id n'existe pas".red
+      puts "\n\n"
     end
   elsif (choix == 7)
-    puts "la liste des adherents est : "
+    puts "\n\n"
+    puts "la liste des adherents est : ".green
     puts "#{Adherent.getAllAdherent().inspect}"
+    puts "\n\n"
   elsif (choix == 8)
-    puts "la liste des documents est : "
+    puts "\n\n"
+    puts "la liste des documents est : ".green
     puts "#{Document.getAllDocument().inspect}"
+    puts "\n\n"
   elsif (choix == 9)
-    puts "la liste des materiels est : "
+    puts "\n\n"
+    puts "la liste des materiels est : ".green
     puts "#{Materiel.getAllMateriel().inspect}"
+    puts "\n\n"
   elsif (choix == 10)
     puts "Entrer lisbn du livre : "
     isbn = gets.to_i
@@ -301,56 +341,81 @@ while repeat
       auteur = gets.to_s.strip
       Document.getAllDocument()[isbn].auteur = auteur
     else
-      puts "probleme avec l'isbn"
+      puts "\n\n"
+      puts "probleme avec l'isbn".red
+      puts "\n\n"
     end
 
   elsif (choix == 11)
     puts "entrer id de l'auteur : "
     id = gets.to_i
     if(Auteur.getAllAuteur().has_key?(id))
-      puts "nom de l'auteur est : #{Auteur.getAllAuteur()[id].name}"
+      puts "\n\n"
+      puts "nom de l'auteur est : #{Auteur.getAllAuteur()[id].name}".green
+      puts "\n\n"
     else
-      puts "id n'existe pas"
+      puts "\n\n"
+      puts "id n'existe pas".red
+      puts "\n\n"
     end
 
   elsif (choix == 12)
-    puts "Voila l'ensemble des id des auteur :"
+    puts "\n\n"
+    puts "Voila l'ensemble des id des auteur : ".green
+    puts "\n\n"
     Auteur.getAllAuteur().each_key{ |id|
       print "#{id}   "
      }
     puts "\n"
   elsif (choix == 13)
-    puts "Voila l'ensemble des id des Materiels :"
+    puts "\n\n"
+    puts "Voila l'ensemble des id des Materiels : ".green
+    puts "\n\n"
     Materiel.getAllMateriel().each_key{ |id|
       print "#{id}   "
      }
+
     puts "\n"
   elsif (choix == 14)
-    puts "Entrer l'id de l'adherent que vous voulez supprimer"
+    puts "Entrer l'id de l'adherent que vous voulez supprimer : "
     id = gets.to_i
     if(Adherent.getAllAdherent().has_key?(id))
       Adherent.getAllAdherent().delete(id)
-      puts "Adherent supprimer avec succes"
+      puts "\n\n"
+      puts "Adherent supprimer avec succes".green
+      puts "\n\n"
     else
-      puts "Id n'existe pas"
+      puts "\n\n"
+      puts "Id n'existe pas".red
+      puts "\n\n"
+
     end
   elsif (choix == 15)
-    puts "Entrer l'id du materiel que vous voulez supprimer"
+    puts "Entrer l'id du materiel que vous voulez supprimer : "
     id = gets.to_i
     if(Materiel.getAllMateriel().has_key?(id))
       Materiel.getAllMateriel().delete(id)
-      puts "Materiel supprimer avec succes"
+      puts "\n\n"
+      puts "Materiel supprimer avec succes".green
+      puts "\n\n"
     else
-      puts "Id n'existe pas"
+      puts "\n\n"
+      puts "Id n'existe pas".red
+      puts "\n\n"
+
     end
   elsif (choix == 16)
-    puts "Entrer l'isbn du document que vous voulez supprimer"
+    puts "Entrer l'isbn du document que vous voulez supprimer : "
     isbn = gets.to_i
     if(Document.getAllDocument().has_key?(isbn))
       Document.getAllDocument().delete(isbn)
-      puts "Document supprimer avec succes"
+      puts "\n\n"
+      puts "Document supprimer avec succes".green
+      puts "\n\n"
     else
-      puts "ISBN n'existe pas"
+      puts "\n\n"
+      puts "ISBN n'existe pas".red
+      puts "\n\n"
     end
   elsif (choix == 17)
     puts "Emprunter un Ordinateur"
@@ -364,10 +429,14 @@ while repeat
       if(laptops.has_key?(id))
         laptops[id].is_empruntable = true
         $empruntable_ordinateur+=1
-        puts "Laptop emprunter avec succes"
+        puts "\n\n"
+        puts "Laptop emprunter avec succes".green
+        puts "\n\n"
       end
     else
-      puts "Vous avez deja emprunter 1 pc portable"
+      puts "\n\n"
+      puts "Vous avez deja emprunter 1 pc portable".red
+      puts "\n\n"
     end
     # if($empruntable_ordinateur == 0) then
     #   puts "Entrer l'id d'ordinateur portable : "
@@ -396,12 +465,18 @@ while repeat
       if(books.has_key?(id))
         books[id].is_empruntabl = true
         $empruntable_livre+=1
-        puts "Livre emprunte avec succes"
+        puts "\n\n"
+        puts "Livre emprunte avec succes".green
+        puts "\n\n"
       else
-        puts "Id existe mais c pas un livre"
+        puts "\n\n"
+        puts "Id existe mais c pas un livre".red
+        puts "\n\n"
       end
     else
-      puts "Vous avez deja emprunter 5 livres"
+      puts "\n\n"
+      puts "Vous avez deja emprunter 5 livres".red
+      puts "\n\n"
     end
   elsif (choix == 19)
     #verifier si deja empruntable
@@ -412,9 +487,14 @@ while repeat
     puts "entrer l'id d'ordinateur portable : "
     id = gets.to_i
     if(laptops_empruntables.has_key?(id))
-      puts "Laptop rendu avec succes"
+      puts "\n\n"
+      puts "Laptop rendu avec succes".green
+      puts "\n\n"
+
     else
-      puts "id n'existe pas"
+      puts "\n\n"
+      puts "id n'existe pas".red
+      puts "\n\n"
     end
   elsif (choix == 20)
     #verifier si deja emoruntable
@@ -425,9 +505,13 @@ while repeat
     puts "entrer l'id de livre : "
     id = gets.to_i
     if(books_empruntables.has_key?(id))
-      puts "Livre rendu avec succes"
+      puts "\n\n"
+      puts "Livre rendu avec succes".green
+      puts "\n\n"
     else
-      puts "id n'existe pas"
+      puts "\n\n"
+      puts "id n'existe pas".red
+      puts "\n\n"
     end
   elsif (choix == 21)
     Biblio = Hash.new()
@@ -438,7 +522,9 @@ while repeat
     print "Entrer le nom du fichier : "
     name = gets.to_s.strip
     CSV.open(name, "wb") {|csv| Biblio.to_a.each {|elem| csv << elem} }
-    puts "La bibliothèque est Enregistre dans un fichier CSV"
+    puts "\n\n"
+    puts "La bibliothèque est Enregistre dans un fichier CSV".green
+    puts "\n\n"
 
   elsif (choix == 22)
     puts "Entrer le nom du fichier CSV : "
@@ -466,15 +552,27 @@ while repeat
     }
 
     puts "\n\n"
-    puts "Donnes charge avec succes!!"
+    puts "Donnes charge avec succes!!".green
     puts "\n\n"
 
+  elsif (choix == 23)
+    puts "Entrer le mot que vous voulez chercher en titre du documents : "
+    word = gets.to_s.strip
+    documents_matches = Document.rechercherTitre(word)
+    puts "\n\n"
+    puts " -> La liste qui contient le mot cle est : ".green
+    puts "\n\n"
+
+    puts "#{documents_matches.inspect}"
 
 
   else
-    puts "********************************************************"
-    puts "-> veuillez choisir un nombre qui existe dans la liste!!"
-    puts "********************************************************"
+    puts "\n\n"
+    puts "********************************************************".red
+    puts "-> veuillez choisir un nombre qui existe dans la liste!!".red
+    puts "********************************************************".red
+    puts "\n\n"
+
     repeat = true
   end
 end
