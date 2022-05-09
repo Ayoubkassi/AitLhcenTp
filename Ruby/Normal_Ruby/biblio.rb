@@ -320,12 +320,12 @@ while repeat
     end
   elsif (choix == 7)
     puts "\n\n"
-    puts "la liste des adherents est : ".green
+    puts "la liste des adherents est \n: ".green
     puts "#{Adherent.getAllAdherent().inspect}"
     puts "\n\n"
   elsif (choix == 8)
     puts "\n\n"
-    puts "la liste des documents est : ".green
+    puts "la liste des documents est : \n".green
     puts "#{Document.getAllDocument().inspect}"
     puts "\n\n"
   elsif (choix == 9)
