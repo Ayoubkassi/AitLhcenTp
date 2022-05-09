@@ -1,3 +1,3 @@
-adherent,"{1=>#<Adherent:0x000055817b383518 @first_name=""Ayoub"", @last_name=""Kassi"">, 2=>#<Adherent:0x000055817b378f00 @first_name=""Maroua"", @last_name=""ElAzzaoui"">}"
-materiels,"{1=>#<Materiel:0x000055817b80f910 @is_empruntable=true, @type=""ordinateur portable"", @name=""Lenovo Thinkpad"">}"
-documents,"{1=>#<Document:0x000055817b376868 @is_empruntable=false, @type=""livre"", @name=""HowToEngineering"", @auteur=""Kassi"">, 2=>#<Document:0x000055817b374bd0 @is_empruntable=false, @type=""livre"", @name=""First20Hours"", @auteur=""Klam"">, 3=>#<Document:0x000055817b3719f8 @is_empruntable=false, @type=""livre"", @name=""DotnetAPI"", @auteur=""Richard Waterson"">}"
+adherent,"{1=>#<Adherent:0x000056505425f710 @first_name=""Yassine"", @last_name=""Oujaa"">, 2=>#<Adherent:0x000056505425dc08 @first_name=""Ibtissam"", @last_name=""Zerouali"">}"
+materiels,"{1=>#<Materiel:0x00005650546fb210 @is_empruntable=true, @type=""ordinateur portable"", @name=""MacBook"">}"
+documents,"{1=>#<Document:0x000056505425b368 @is_empruntable=false, @type=""livre"", @name=""SexPack"", @auteur=""Daphne Rosen"">, 2=>#<Document:0x00005650546fbe18 @is_empruntable=false, @type=""livre"", @name=""HowToSex"", @auteur=""Kendra Lust"">}"

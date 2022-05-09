@@ -24,8 +24,17 @@ class Adherent
     return @@liste_adherent
   end
 
+  def self.setAdherents(new_adherents)
+    @@liste_adherent = new_adherents.clone
+  end
+
+
   def addAdherent
     @@liste_adherent[@@id] = self
+  end
+
+  def self.removeAll
+    @@liste_adherent.clear
   end
 
   def toString
@@ -70,6 +79,13 @@ class Document
 
   def self.getAllDocument
     return @@liste_document
+  end
+  def self.setDocuments(new_documents)
+    @@liste_document = new_documents.clone
+  end
+
+  def self.removeAll
+    @@liste_document.clear
   end
 
   def addDocument
@@ -123,8 +139,16 @@ class Materiel
     return @@liste_materiel
   end
 
+  def self.removeAll
+    @@liste_materiel.clear
+  end
+
   def addMateriel
     @@liste_materiel[@@id] = self
+  end
+
+  def self.setMateriels(new_materiels)
+    @@liste_materiel = new_materiels.clone
   end
 
   def toString
@@ -411,13 +435,42 @@ while repeat
     Biblio["materiels"] = Materiel.getAllMateriel()
     Biblio["documents"] = Document.getAllDocument()
 
-    CSV.open("data.csv", "wb") {|csv| Biblio.to_a.each {|elem| csv << elem} }
+    print "Entrer le nom du fichier : "
+    name = gets.to_s.strip
+    CSV.open(name, "wb") {|csv| Biblio.to_a.each {|elem| csv << elem} }
     puts "La bibliothèque est Enregistre dans un fichier CSV"
 
   elsif (choix == 22)
     puts "Entrer le nom du fichier CSV : "
+
     csv_name = gets.to_s.strip
-    
+    data = CSV.read(csv_name)
+    #reset the values aleready have data
+    Adherent.removeAll()
+    Materiel.removeAll()
+    Document.removeAll()
+
+    data.each{|value|
+        categorie = value[0]
+        data = value[1]
+        # puts "categorie : #{categorie}"
+        # puts "values : #{data}"
+        # puts "\n\n"
+        if(categorie == "adherent")
+          Adherent.setAdherents(value)
+        elsif (categorie == "materiels")
+          Materiel.setMateriels(value)
+        elsif (categorie == "documents")
+          Document.setDocuments(value)
+        end
+    }
+
+    puts "\n\n"
+    puts "Donnes charge avec succes!!"
+    puts "\n\n"
+
+
+
   else
     puts "********************************************************"
     puts "-> veuillez choisir un nombre qui existe dans la liste!!"
