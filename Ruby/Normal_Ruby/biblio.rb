@@ -462,12 +462,20 @@ while repeat
       books = Document.getAllDocument().select{ |cle, valeur|
         valeur.type == "livre"
       }
-      if(books.has_key?(id))
+      if(books.has_key?(id) && books[id].is_empruntabl == false)
         books[id].is_empruntabl = true
         $empruntable_livre+=1
         puts "\n\n"
         puts "Livre emprunte avec succes".green
         puts "\n\n"
+      elsif (books.has_key?(id) && books[id].is_empruntabl == true)
+        begin
+        rescue DejaEmpruntable => e
+          puts e.red
+          puts "\n\n"
+          puts "Deja Empruntable"
+          puts "\n\n"
+        end
       else
         begin
         rescue NotLivre => e
