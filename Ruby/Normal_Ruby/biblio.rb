@@ -469,14 +469,23 @@ while repeat
         puts "Livre emprunte avec succes".green
         puts "\n\n"
       else
-        puts "\n\n"
-        puts "Id existe mais c pas un livre".red
-        puts "\n\n"
+        begin
+        rescue NotLivre => e
+          puts e.red
+          puts "\n\n"
+          puts "Id existe mais c pas un livre".red
+          puts "\n\n"
+        end
       end
     else
-      puts "\n\n"
-      puts "Vous avez deja emprunter 5 livres".red
-      puts "\n\n"
+      begin
+        $empruntable_livre >=5
+      rescue MaxEmpruntableLivre => e
+        puts e.red
+        puts "\n\n"
+        puts "Vous avez deja emprunter 5 livres".red
+        puts "\n\n"
+      end
     end
   elsif (choix == 19)
     #verifier si deja empruntable
@@ -492,9 +501,13 @@ while repeat
       puts "\n\n"
 
     else
-      puts "\n\n"
-      puts "id n'existe pas".red
-      puts "\n\n"
+      begin
+      rescue DontExist => e
+        puts e.red
+        puts "\n\n"
+        puts "id n'existe pas".red
+        puts "\n\n"
+      end
     end
   elsif (choix == 20)
     #verifier si deja emoruntable
@@ -509,9 +522,13 @@ while repeat
       puts "Livre rendu avec succes".green
       puts "\n\n"
     else
-      puts "\n\n"
-      puts "id n'existe pas".red
-      puts "\n\n"
+      begin
+      rescue DontExist => e
+        puts e.red
+        puts "\n\n"
+        puts "id n'existe pas".red
+        puts "\n\n"
+      end
     end
   elsif (choix == 21)
     Biblio = Hash.new()
